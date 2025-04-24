@@ -24,17 +24,7 @@ import Careers from "./components/pages/Careers";
 import Contact from "./components/pages/Contact";
 import Partner from "./components/pages/Partner";
 import Location from "./components/pages/Location"
-// import Search from "./components/pages/Search";
-
-
-
-
-
-
-
-
-
-
+import ProductDetails from "./components/pages/ProductDetails";
 
 
 
@@ -45,6 +35,8 @@ function App() {
     <ContextProvider>
       <Router>
         <Nav />
+
+        
 
         <Routes>
           <Route path="/" element={<Home />} />
@@ -69,7 +61,7 @@ function App() {
           <Route path="/contact" element={<Contact/>} />
           <Route path="/partner" element={<Partner/>} />
           <Route path="/location" element={<Location/>} />
-          {/* <Route path="/search" element={<Search/>} /> */}
+          <Route path="/product/:id" element={<ProductDetails />} />
         </Routes>
       </Router>
     </ContextProvider>

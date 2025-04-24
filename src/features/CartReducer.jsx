@@ -9,7 +9,7 @@ export const totalItem = (cart) => {
   const CartReducer = (state, action) => {
     switch (action.type) {
       case "add":
-        // If item is already in cart, increase quantity instead of adding duplicate
+        
         const existingProductIndex = state.findIndex((p) => p.id === action.product.id);
         if (existingProductIndex !== -1) {
           return state.map((product, index) =>

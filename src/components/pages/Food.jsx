@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import groimg from "../../assets/gro.jpg";
 import flour from "../../assets/flour.jpg";
 import tea from "../../assets/herbaltea.jpg";
@@ -22,9 +22,12 @@ import lays from "../../assets/lays.jpg";
 import yogurt from "../../assets/yogurt.jpg";
 import salt from "../../assets/salt.jpg";
 import feast from "../../assets/feast.png";
+
 import Footer from "../Footer";
 import { cartContext } from "../../features/ContextProvider";
-
+import { SearchContext } from "../../features/SearchContext";
+import ProductCard from "../pages/ProductCard";
+import QuickViewModal from "../pages/QuickViewModal";
 
 const products = [
   { id: 1, name: "Ghana Gari 5lbs", price: 160, image: flour },
@@ -51,53 +54,48 @@ const products = [
   { id: 22, name: "Feast Ice Cream", price: 320, image: feast },
 ];
 
-const ProductCard = ({ product, dispatch }) => (
-  <div className="border p-4 shadow-lg rounded-lg">
-    <img
-      src={product.image}
-      alt={product.name}
-      className="h-60 w-auto transition duration-100 ease-in hover:scale-105 cursor-pointer mx-auto"
-    />
-    <p className="text-gray-600 font-bold mt-2 text-2xl">{product.name}</p>
-    <span className="text-blue-950 text-xl">PKR {product.price}</span>
-    <br />
-    <button
-      className="bg-green-300 p-3 w-full text-lg mt-2 cursor-pointer"
-      onClick={() => dispatch({ type: "add", product :product})}>
-      Add to Cart
-    </button>
-    <button className="p-3 w-full text-lg mt-2 bg-gray-200 cursor-pointer">
-      Quick View
-    </button>
-  </div>
-);
-
 const Food = () => {
   const { dispatch } = useContext(cartContext);
+  const { searchTerm } = useContext(SearchContext);
+  const [quickViewProduct, setQuickViewProduct] = useState(null);
+
+  const handleQuickView = (product) => setQuickViewProduct(product);
+  const closeQuickView = () => setQuickViewProduct(null);
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <>
       <img
         src={groimg}
-        alt="not available"
+        alt="Groceries Banner"
         className="w-screen h-[35rem] object-cover"
       />
+
       <p className="text-gray-700 text-2xl font-semibold mt-4 mx-10">
         Discover Authentic African Flavors in Every Aisle
       </p>
       <p className="text-gray-500 mt-4 mx-12">
         At Pakistan Grocery Store, our grocery section is a treasure trove of
         authentic foods and pantry staples that bring the rich and diverse
-        flavors of the continent straight to your kitchen. Explore the tastes
-        of Asia with us and make every meal a celebration of tradition and
-        culture. Visit us in-store or shop online to experience the true
-        essence of Asian cuisine!
+        flavors of the continent straight to your kitchen.
       </p>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 mt-12 mx-10">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} dispatch={dispatch} />
+        {filteredProducts.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            dispatch={dispatch}
+            handleQuickView={handleQuickView}
+          />
         ))}
       </div>
+
+      <QuickViewModal product={quickViewProduct} onClose={closeQuickView} />
+
       <Footer />
     </>
   );

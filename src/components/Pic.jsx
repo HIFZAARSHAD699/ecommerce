@@ -1,19 +1,17 @@
 import React, { useRef, useContext } from "react";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import flour from "../assets/flour.jpg";
 import tea from "../assets/herbaltea.jpg";
 import cocoa from "../assets/cocoa.jpg";
 import beans from "../assets/beans.jpg";
 import yogurt from "../assets/yogurt.jpg";
 import whiteflour from "../assets/whiteflour.jpg";
-
 import yellowtea from "../assets/yellowtea.png";
 import frozen from "../assets/categories/frozen.jpg";
 import dairy from "../assets/categories/dairy.jpg";
 import house from "../assets/categories/house.jpg";
 import flourrice from "../assets/categories/ricepulses.jpg";
 import { cartContext } from "../features/ContextProvider";
-
 
 const products = [
   { id: 1, name: "Ghana Gari 5lbs", price: 160, image: flour },
@@ -24,7 +22,6 @@ const products = [
   { id: 6, name: "3 Ballerina Herbal Tea", price: 119, image: tea },
   { id: 7, name: "Lipton Yellow Label Tea", price: 120, image: yellowtea },
 ];
-
 
 const Pic = () => {
   const scrollRef = useRef();
@@ -40,64 +37,79 @@ const Pic = () => {
 
   return (
     <>
-      <div className="mx-10 my-8">
-        <p className="text-gray-700 text-3xl font-bold mt-4">Shop BestSellers</p>
+      <div className="px-4 md:px-10 my-8">
+        <p className="text-gray-700 text-2xl sm:text-3xl font-bold mt-4">Shop BestSellers</p>
         <div className="relative flex items-center mt-9">
           <button
             onClick={scrollLeft}
-            className="absolute bg-gray-200 p-2 rounded-full hover:bg-green-200"
+            className="absolute z-10 bg-gray-200 p-2 rounded-full hover:bg-green-200 left-2"
           >
             ◀
           </button>
-          <div ref={scrollRef} className="flex overflow-x-auto gap-10 px-10 scrollbar-hide">
+          <div
+            ref={scrollRef}
+            className="flex overflow-x-auto gap-6 sm:gap-10 px-10 scrollbar-hide"
+          >
             {products.map((product) => (
-              <div key={product.id} className="flex-shrink-0 w-60 ">
+              <div key={product.id} className="flex-shrink-0 w-48 sm:w-60">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="h-60 w-auto transition duration-200 ease-in hover:scale-105 cursor-pointer mx-auto"
+                  className="h-48 sm:h-60 w-auto transition duration-200 ease-in hover:scale-105 cursor-pointer mx-auto"
                 />
-                <p className="text-gray-600 font-bold mt-2 text-lg">{product.name}</p>
-                <span className="text-blue-950 text-xl">PKR {product.price}</span>
+                <p className="text-gray-600 font-bold mt-2 text-base sm:text-lg">{product.name}</p>
+                <span className="text-blue-950 text-lg sm:text-xl">PKR {product.price}</span>
                 <br />
                 <button
-                  className="bg-green-300 p-3 w-full text-lg mt-3 cursor-pointer"
-                  onClick={() => dispatch({ type: "add", product :product })}
+                  className="bg-green-300 p-2 sm:p-3 w-full text-base sm:text-lg mt-3 cursor-pointer"
+                  onClick={() => dispatch({ type: "add", product })}
                 >
                   Add to Cart
-                </button>
-                <button className="p-3 w-full text-lg mt-2 bg-gray-200 cursor-pointer">
-                  Quick View
                 </button>
               </div>
             ))}
           </div>
           <button
             onClick={scrollRight}
-            className="absolute right-0 bg-gray-200 p-2 rounded-full hover:bg-green-200"
+            className="absolute z-10 right-2 bg-gray-200 p-2 rounded-full hover:bg-green-200"
           >
             ▶
           </button>
         </div>
       </div>
 
-      <div className="mx-10 my-8">
-    <p className="text-gray-700 text-3xl font-bold mt-4">Shop By Categories</p>
-    <div className="flex mx-35 gap-20 mt-5 ">
-      <Link to="/frozen">
-      <img src={frozen} alt="not available" className="w-50 h-50  rounded-full cursor-pointer" /></Link>
-      <Link to="/dairy">
-      <img src={dairy} alt="not available" className="w-50 h-50  rounded-full cursor-pointer"/></Link>
-      <Link to="/house">
-      <img src={house} alt="not available" className="w-50 h-50  rounded-full cursor-pointer" /></Link>
-      <Link to="/flourrice">
-      <img src={flourrice} alt="not available"  className="w-50 h-50  rounded-full cursor-pointer"/></Link>
-
-
-    </div>
-
-
-
+      <div className="px-4 md:px-10 my-8">
+        <p className="text-gray-700 text-2xl sm:text-3xl font-bold mt-4">Shop By Categories</p>
+        <div className="flex flex-wrap justify-center sm:justify-start gap-8 sm:gap-20 mt-6">
+          <Link to="/frozen">
+            <img
+              src={frozen}
+              alt="Frozen"
+              className="w-24 sm:w-40 h-24 sm:h-40 rounded-full cursor-pointer object-cover"
+            />
+          </Link>
+          <Link to="/dairy">
+            <img
+              src={dairy}
+              alt="Dairy"
+              className="w-24 sm:w-40 h-24 sm:h-40 rounded-full cursor-pointer object-cover"
+            />
+          </Link>
+          <Link to="/house">
+            <img
+              src={house}
+              alt="House"
+              className="w-24 sm:w-40 h-24 sm:h-40 rounded-full cursor-pointer object-cover"
+            />
+          </Link>
+          <Link to="/flourrice">
+            <img
+              src={flourrice}
+              alt="Rice & Pulses"
+              className="w-24 sm:w-40 h-24 sm:h-40 rounded-full cursor-pointer object-cover"
+            />
+          </Link>
+        </div>
       </div>
     </>
   );
